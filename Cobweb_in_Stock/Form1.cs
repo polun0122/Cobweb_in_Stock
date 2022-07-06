@@ -4,7 +4,7 @@ using System.IO;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Drawing;
 
-namespace 台達蛛網視窗輸入程式
+namespace Cobweb_in_Stock
 {
     public partial class Form1 : Form
     {

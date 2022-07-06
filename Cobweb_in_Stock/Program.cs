@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace 台達蛛網視窗輸入程式
+namespace Cobweb_in_Stock
 {
     static class Program
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Excel = Microsoft.Office.Interop.Excel;
 
-namespace 台達蛛網視窗輸入程式
+namespace Cobweb_in_Stock
 {
     class ManagedExcelApp : IDisposable
     {

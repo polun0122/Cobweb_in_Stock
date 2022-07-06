@@ -1,5 +1,5 @@
 ﻿
-namespace 台達蛛網視窗輸入程式
+namespace Cobweb_in_Stock
 {
     partial class Form1
     {
