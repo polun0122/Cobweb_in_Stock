@@ -8,11 +8,11 @@ namespace Cobweb_in_Stock
 {
     public partial class Form1 : Form
     {
-        string filePath = Environment.CurrentDirectory + "台達蛛網.xlsx";
+        string filePath;
         string Mode;
         ManagedExcelApp excelApp = new ManagedExcelApp();
         
-        Stock stock = new Stock("台達電", 275, 200, (float)2.5, 5);
+        Stock stock = new Stock("台達電", 275, 200, (float)2.5, 5, 8);
 
         public Form1()
         {
@@ -117,6 +117,7 @@ namespace Cobweb_in_Stock
                 MessageBox.Show("儲存成功");
                 ProfitStockDateUpdate();
                 NextOperatePriceUpdate();
+                totalPriceUpdate();
             }
             else
             {
@@ -178,6 +179,7 @@ namespace Cobweb_in_Stock
                 textBoxFileStatus.Text = "已載入";
                 ProfitStockDateUpdate();
                 NextOperatePriceUpdate();
+                totalPriceUpdate();
             }
         }
 
@@ -212,8 +214,7 @@ namespace Cobweb_in_Stock
                         }
                     }
                 }
-                stock.setNextPrice((float)(minPriceInStock - 2.5), (float)(minPriceInStock + 5));
-                //totalPriceUpdate();
+                stock.setNextPrice(minPriceInStock - stock.getBuyInterval(), minPriceInStock + stock.getSellInterval());
             }
         }
 
