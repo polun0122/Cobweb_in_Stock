@@ -46,6 +46,16 @@ namespace Cobweb_in_Stock
             excelApp = null;
         }
 
+        public bool setCell(string row, string column)
+        {
+            return true;
+        }
+
+        public object getCell(string row, string column)
+        {
+            return true;
+        }
+
         #region IDisposable Support
         private bool disposedValue;
 

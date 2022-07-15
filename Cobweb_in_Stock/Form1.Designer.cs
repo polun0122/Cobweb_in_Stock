@@ -177,6 +177,7 @@ namespace Cobweb_in_Stock
             0,
             0});
             this.boxTargetUnitPrice.Name = "boxTargetUnitPrice";
+            this.boxTargetUnitPrice.ReadOnly = true;
             this.boxTargetUnitPrice.Size = new System.Drawing.Size(100, 27);
             this.boxTargetUnitPrice.TabIndex = 9;
             this.boxTargetUnitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -373,7 +374,7 @@ namespace Cobweb_in_Stock
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(538, 10);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(172, 366);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;

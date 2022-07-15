@@ -12,35 +12,18 @@ namespace Cobweb_in_Stock
         string Mode;
         ManagedExcelApp excelApp = new ManagedExcelApp();
         
-        //Excel.Application excelApp = new Excel.Application();
-        //Excel.Workbook workbook = null;
-        //Excel.Worksheet worksheet = null;
-        float nextBuyPrice = 250;
-        float nextSellPrice = 250;
-        
+        Stock stock = new Stock("台達電", 275, 200, (float)2.5, 5);
+
         public Form1()
         {
             InitializeComponent();
             comboBoxMode.SelectedIndex = 0;
             dateTimePicker.Value = DateTime.Now;
-            totalPriceUpdate();
         }
 
         private void comboBoxMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Mode = comboBoxMode.SelectedItem.ToString();
-            if (Mode == "買進")
-            {
-                buttonSend.BackColor = Color.Red;
-                buttonSend.ForeColor = Color.White;
-                boxTargetUnitPrice.Value = (decimal)nextBuyPrice;
-            }
-            else
-            {
-                buttonSend.BackColor = Color.Green;
-                buttonSend.ForeColor = Color.White;
-                boxTargetUnitPrice.Value = (decimal)nextSellPrice;
-            }
+            totalPriceUpdate();
         }
 
         private void buttonFileSelect_Click(object sender, EventArgs e)
@@ -57,6 +40,10 @@ namespace Cobweb_in_Stock
                 {
                     OpenFile();
                 }
+            }
+            else
+            {
+                textBoxFileStatus.Text = "找不到檔案，請重新選擇";
             }
         }
 
@@ -80,7 +67,6 @@ namespace Cobweb_in_Stock
                     excelApp.worksheet.Cells[rowCount + 1, "E"] = boxTotalPrice.Value.ToString();
                     //損益
                     excelApp.worksheet.Cells[rowCount + 1, "J"] = "=I" + (rowCount + 1) + "-E" + (rowCount + 1);
-
                 }
                 else
                 {
@@ -155,29 +141,29 @@ namespace Cobweb_in_Stock
 
         private void totalPriceUpdate()
         {
-            double unitPrice = (double)boxUnitPrice.Value;
-            double amount = (double)boxAmount.Value;
+            Mode = comboBoxMode.SelectedItem.ToString();
+            stock.updateTransactionPrice(Mode, (float)boxUnitPrice.Value, (int)boxAmount.Value);
+            updateUi();
+        }
+
+        private void updateUi()
+        {
+            Mode = comboBoxMode.SelectedItem.ToString();
             if (Mode == "買進")
             {
-                double fee = unitPrice * amount * 0.001425 * 0.6;//手續費
-                if (fee < 1)
-                    fee = 1;
-                textBoxFee.Text = Math.Round(fee, 2).ToString("#0.00");
-                textBoxTax.Text = "0";
-                boxTotalPrice.Value = boxUnitPrice.Value * boxAmount.Value + (int)fee;
+                buttonSend.BackColor = Color.Red;
+                buttonSend.ForeColor = Color.White;
+                boxTargetUnitPrice.Value = (decimal)stock.getNextBuyPrice();
             }
             else
             {
-                double fee = unitPrice * amount * 0.001425 * 0.6;//手續費
-                if (fee < 1)
-                    fee = 1;
-                double tax = unitPrice * amount * 0.003; //證交稅
-                if (tax < 1)
-                    tax = 1;
-                textBoxFee.Text = Math.Round(fee, 2).ToString("#0.00");
-                textBoxTax.Text = Math.Round(tax, 2).ToString("#0.00");
-                boxTotalPrice.Value = boxUnitPrice.Value * boxAmount.Value - (int)fee - (int)tax;
+                buttonSend.BackColor = Color.Green;
+                buttonSend.ForeColor = Color.White;
+                boxTargetUnitPrice.Value = (decimal)stock.getNextSellPrice();
             }
+            textBoxFee.Text = Math.Round(stock.getFee(), 2).ToString("#0.00");
+            textBoxTax.Text = Math.Round(stock.getTax(), 2).ToString("#0.00");
+            boxTotalPrice.Value = (decimal)stock.getDealPrice();
         }
 
         private void OpenFile()
@@ -202,7 +188,7 @@ namespace Cobweb_in_Stock
             textBoxObtainedProfit.Text = profitCell.Text;
             Excel.Range stockCell = (Excel.Range)excelApp.worksheet.Cells[6, "N"];
             textBoxStock.Text = stockCell.Text;
-            Excel.Range lastUpdateCell = (Excel.Range)excelApp.worksheet.Cells[8, "N"];
+            Excel.Range lastUpdateCell = (Excel.Range)excelApp.worksheet.Cells[7, "N"];
             textBoxLastUpdate.Text = lastUpdateCell.Text;
         }
 
@@ -226,13 +212,8 @@ namespace Cobweb_in_Stock
                         }
                     }
                 }
-                nextBuyPrice = (float)(minPriceInStock - 2.5);
-                nextSellPrice = (float)(minPriceInStock + 5);
-
-                if (Mode == "買進")
-                    boxTargetUnitPrice.Value = (decimal)nextBuyPrice;
-                else
-                    boxTargetUnitPrice.Value = (decimal)nextSellPrice;
+                stock.setNextPrice((float)(minPriceInStock - 2.5), (float)(minPriceInStock + 5));
+                //totalPriceUpdate();
             }
         }
 
