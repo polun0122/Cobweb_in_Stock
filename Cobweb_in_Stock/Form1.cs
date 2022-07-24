@@ -12,13 +12,14 @@ namespace Cobweb_in_Stock
         string Mode;
         ManagedExcelApp excelApp = new ManagedExcelApp();
         
-        Stock stock = new Stock("台達電", 275, 200, (float)2.5, 5, 8);
+        Stock stock = new Stock("台達電", "2308", 275, 200, (float)2.5, 5, 8);
 
         public Form1()
         {
             InitializeComponent();
             comboBoxMode.SelectedIndex = 0;
             dateTimePicker.Value = DateTime.Now;
+            Console.WriteLine(stock.isSpecialStock());
         }
 
         private void comboBoxMode_SelectedIndexChanged(object sender, EventArgs e)

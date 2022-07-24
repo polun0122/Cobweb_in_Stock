@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Cobweb_in_Stock
 {
@@ -10,7 +11,8 @@ namespace Cobweb_in_Stock
     {
         /* 固定的變數 */
         string name;
-        int number;
+        string number; // 股票代碼
+        //bool isSpecial; // 是否為特別股
         string execelName; // 檔案名稱
         float price_ub; // 蛛網設定之股價上限
         float price_lb; // 蛛網設定之股價下限
@@ -19,7 +21,7 @@ namespace Cobweb_in_Stock
         float expectAmount; // 預期每次操作股數
 
         double feeRate = 0.001425 * 0.6;//手續費率
-        double taxRate = 0.003; //證交稅率
+        double taxRate; //證交稅率
         int minFee = 1; // 最低手續費
         int minTax = 1; // 最低證交稅
 
@@ -32,9 +34,10 @@ namespace Cobweb_in_Stock
         float fee; //手續費
         float tax; //證交稅
 
-        public Stock(string name, float price_ub, float price_lb, float buyInterval, float sellInterval, int expectAmount)
+        public Stock(string name, string number, float price_ub, float price_lb, float buyInterval, float sellInterval, int expectAmount)
         {
             this.name = name;
+            this.number = number;
             this.price_ub = price_ub;
             this.price_lb = price_lb;
             this.buyInterval = buyInterval;
@@ -42,6 +45,9 @@ namespace Cobweb_in_Stock
             this.expectAmount = expectAmount;
             this.nextBuyPrice = (price_lb + price_ub) / 2;
             this.nextSellPrice = (price_lb + price_ub) / 2;
+
+            /* 設定稅率 */
+            taxRate = this.isSpecialStock() ? 0.001 : 0.003;
         }
 
         public void setNextPrice(float nextBuyPrice, float nextSellPrice)
@@ -63,6 +69,12 @@ namespace Cobweb_in_Stock
         public float getBuyInterval() { return buyInterval; }
         
         public float getSellInterval() { return sellInterval; }
+
+        public bool isSpecialStock()
+        {
+            Regex rx = new Regex("[A-Z]$");
+            return rx.IsMatch(this.number);
+        }
 
         public int updateTransactionPrice(string mode, float dealUnitPrice, int dealAmount)
         {
