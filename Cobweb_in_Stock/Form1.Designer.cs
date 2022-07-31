@@ -48,16 +48,17 @@ namespace Cobweb_in_Stock
             this.textBoxFileStatus = new System.Windows.Forms.TextBox();
             this.buttonSend = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBoxObtainedProfit = new System.Windows.Forms.TextBox();
-            this.textBoxStock = new System.Windows.Forms.TextBox();
+            this.tbObtainedProfit = new System.Windows.Forms.TextBox();
+            this.tbReserveAmount = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxTax = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxFee = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.textBoxLastUpdate = new System.Windows.Forms.TextBox();
+            this.tbLastUpdate = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.btnCreateFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.boxTargetUnitPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxUnitPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxAmount)).BeginInit();
@@ -70,7 +71,7 @@ namespace Cobweb_in_Stock
             this.buttonFileSelect.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.buttonFileSelect.Location = new System.Drawing.Point(27, 21);
             this.buttonFileSelect.Name = "buttonFileSelect";
-            this.buttonFileSelect.Size = new System.Drawing.Size(103, 60);
+            this.buttonFileSelect.Size = new System.Drawing.Size(103, 54);
             this.buttonFileSelect.TabIndex = 0;
             this.buttonFileSelect.Text = "選擇檔案";
             this.buttonFileSelect.UseVisualStyleBackColor = true;
@@ -93,7 +94,7 @@ namespace Cobweb_in_Stock
             this.comboBoxMode.Items.AddRange(new object[] {
             "買進",
             "賣出"});
-            this.comboBoxMode.Location = new System.Drawing.Point(27, 134);
+            this.comboBoxMode.Location = new System.Drawing.Point(27, 145);
             this.comboBoxMode.Name = "comboBoxMode";
             this.comboBoxMode.Size = new System.Drawing.Size(103, 24);
             this.comboBoxMode.TabIndex = 2;
@@ -166,13 +167,13 @@ namespace Cobweb_in_Stock
             this.boxTargetUnitPrice.DecimalPlaces = 2;
             this.boxTargetUnitPrice.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.boxTargetUnitPrice.Increment = new decimal(new int[] {
-            25,
+            1,
             0,
             0,
-            65536});
+            131072});
             this.boxTargetUnitPrice.Location = new System.Drawing.Point(27, 243);
             this.boxTargetUnitPrice.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -182,7 +183,7 @@ namespace Cobweb_in_Stock
             this.boxTargetUnitPrice.TabIndex = 9;
             this.boxTargetUnitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.boxTargetUnitPrice.Value = new decimal(new int[] {
-            250,
+            10,
             0,
             0,
             0});
@@ -193,13 +194,13 @@ namespace Cobweb_in_Stock
             this.boxUnitPrice.DecimalPlaces = 2;
             this.boxUnitPrice.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.boxUnitPrice.Increment = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
-            65536});
+            131072});
             this.boxUnitPrice.Location = new System.Drawing.Point(154, 243);
             this.boxUnitPrice.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -208,7 +209,7 @@ namespace Cobweb_in_Stock
             this.boxUnitPrice.TabIndex = 10;
             this.boxUnitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.boxUnitPrice.Value = new decimal(new int[] {
-            250,
+            10,
             0,
             0,
             0});
@@ -228,7 +229,7 @@ namespace Cobweb_in_Stock
             this.boxAmount.TabIndex = 11;
             this.boxAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.boxAmount.Value = new decimal(new int[] {
-            8,
+            1,
             0,
             0,
             0});
@@ -300,25 +301,25 @@ namespace Cobweb_in_Stock
             this.label8.TabIndex = 17;
             this.label8.Text = "已實現獲利";
             // 
-            // textBoxObtainedProfit
+            // tbObtainedProfit
             // 
-            this.textBoxObtainedProfit.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxObtainedProfit.Location = new System.Drawing.Point(282, 145);
-            this.textBoxObtainedProfit.Name = "textBoxObtainedProfit";
-            this.textBoxObtainedProfit.ReadOnly = true;
-            this.textBoxObtainedProfit.Size = new System.Drawing.Size(100, 27);
-            this.textBoxObtainedProfit.TabIndex = 19;
-            this.textBoxObtainedProfit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbObtainedProfit.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.tbObtainedProfit.Location = new System.Drawing.Point(282, 145);
+            this.tbObtainedProfit.Name = "tbObtainedProfit";
+            this.tbObtainedProfit.ReadOnly = true;
+            this.tbObtainedProfit.Size = new System.Drawing.Size(100, 27);
+            this.tbObtainedProfit.TabIndex = 19;
+            this.tbObtainedProfit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // textBoxStock
+            // tbReserveAmount
             // 
-            this.textBoxStock.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxStock.Location = new System.Drawing.Point(409, 145);
-            this.textBoxStock.Name = "textBoxStock";
-            this.textBoxStock.ReadOnly = true;
-            this.textBoxStock.Size = new System.Drawing.Size(100, 27);
-            this.textBoxStock.TabIndex = 21;
-            this.textBoxStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbReserveAmount.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.tbReserveAmount.Location = new System.Drawing.Point(409, 145);
+            this.tbReserveAmount.Name = "tbReserveAmount";
+            this.tbReserveAmount.ReadOnly = true;
+            this.tbReserveAmount.Size = new System.Drawing.Size(100, 27);
+            this.tbReserveAmount.TabIndex = 21;
+            this.tbReserveAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label9
             // 
@@ -381,15 +382,15 @@ namespace Cobweb_in_Stock
             this.pictureBox1.TabIndex = 26;
             this.pictureBox1.TabStop = false;
             // 
-            // textBoxLastUpdate
+            // tbLastUpdate
             // 
-            this.textBoxLastUpdate.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxLastUpdate.Location = new System.Drawing.Point(154, 145);
-            this.textBoxLastUpdate.Name = "textBoxLastUpdate";
-            this.textBoxLastUpdate.ReadOnly = true;
-            this.textBoxLastUpdate.Size = new System.Drawing.Size(100, 27);
-            this.textBoxLastUpdate.TabIndex = 28;
-            this.textBoxLastUpdate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbLastUpdate.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.tbLastUpdate.Location = new System.Drawing.Point(154, 145);
+            this.tbLastUpdate.Name = "tbLastUpdate";
+            this.tbLastUpdate.ReadOnly = true;
+            this.tbLastUpdate.Size = new System.Drawing.Size(100, 27);
+            this.tbLastUpdate.TabIndex = 28;
+            this.tbLastUpdate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label12
             // 
@@ -401,21 +402,33 @@ namespace Cobweb_in_Stock
             this.label12.TabIndex = 27;
             this.label12.Text = "最後更新日";
             // 
+            // btnCreateFile
+            // 
+            this.btnCreateFile.Font = new System.Drawing.Font("PMingLiU", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnCreateFile.Location = new System.Drawing.Point(27, 82);
+            this.btnCreateFile.Name = "btnCreateFile";
+            this.btnCreateFile.Size = new System.Drawing.Size(103, 28);
+            this.btnCreateFile.TabIndex = 29;
+            this.btnCreateFile.Text = "建立新檔";
+            this.btnCreateFile.UseVisualStyleBackColor = true;
+            this.btnCreateFile.Click += new System.EventHandler(this.btnCreateFile_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(739, 385);
-            this.Controls.Add(this.textBoxLastUpdate);
+            this.ClientSize = new System.Drawing.Size(739, 381);
+            this.Controls.Add(this.btnCreateFile);
+            this.Controls.Add(this.tbLastUpdate);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.textBoxTax);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.textBoxFee);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.textBoxStock);
+            this.Controls.Add(this.tbReserveAmount);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.textBoxObtainedProfit);
+            this.Controls.Add(this.tbObtainedProfit);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.buttonSend);
             this.Controls.Add(this.label7);
@@ -467,16 +480,17 @@ namespace Cobweb_in_Stock
         private System.Windows.Forms.TextBox textBoxFileStatus;
         private System.Windows.Forms.Button buttonSend;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBoxObtainedProfit;
-        private System.Windows.Forms.TextBox textBoxStock;
+        private System.Windows.Forms.TextBox tbObtainedProfit;
+        private System.Windows.Forms.TextBox tbReserveAmount;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBoxTax;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBoxFee;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox textBoxLastUpdate;
+        private System.Windows.Forms.TextBox tbLastUpdate;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button btnCreateFile;
     }
 }
 

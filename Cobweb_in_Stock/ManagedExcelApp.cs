@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Cobweb_in_Stock
 {
-    class ManagedExcelApp : IDisposable
+    public class ManagedExcelApp : IDisposable
     {
         dynamic excelApp = null;
         Excel.Workbook workbook = null;
@@ -35,6 +32,18 @@ namespace Cobweb_in_Stock
             workbook.Save();
         }
 
+        public void SaveAs(string filePath)
+        {
+            workbook.SaveAs(filePath);
+        }
+
+        public void CreateEmptyFile()
+        {
+            workbook = excelApp.Workbooks.Add(true);
+            worksheet = new Excel.Worksheet();
+            worksheet = workbook.Worksheets[1];
+        }
+
         public void Close()
         {
             worksheet = null;
@@ -44,16 +53,6 @@ namespace Cobweb_in_Stock
             if (excelApp != null)
                 excelApp.Quit();
             excelApp = null;
-        }
-
-        public bool setCell(string row, string column)
-        {
-            return true;
-        }
-
-        public object getCell(string row, string column)
-        {
-            return true;
         }
 
         #region IDisposable Support

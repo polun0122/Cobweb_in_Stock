@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Windows.Forms;
-using System.IO;
-using Excel = Microsoft.Office.Interop.Excel;
 using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Cobweb_in_Stock
 {
@@ -11,15 +11,15 @@ namespace Cobweb_in_Stock
         string filePath;
         string Mode;
         ManagedExcelApp excelApp = new ManagedExcelApp();
-        
-        Stock stock = new Stock("台達電", "2308", 275, 200, (float)2.5, 5, 8);
+        ExcelCell excelCell = null;
+
+        Stock stock = null;
 
         public Form1()
         {
             InitializeComponent();
             comboBoxMode.SelectedIndex = 0;
             dateTimePicker.Value = DateTime.Now;
-            Console.WriteLine(stock.isSpecialStock());
         }
 
         private void comboBoxMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -52,65 +52,57 @@ namespace Cobweb_in_Stock
         {
             if (excelApp.worksheet != null)
             {
-                int rowCount = excelApp.worksheet.UsedRange.Cells.Rows.Count;
+                int rowCount = excelCell.rowDataMax;
                 
                 if (Mode == "買進")
                 {
+                    string[] data = {
                     //目標單價
-                    excelApp.worksheet.Cells[rowCount + 1, "A"] = boxTargetUnitPrice.Value.ToString();
+                        boxTargetUnitPrice.Value.ToString(),
                     //單價
-                    excelApp.worksheet.Cells[rowCount + 1, "B"] = boxUnitPrice.Value.ToString();
+                        boxUnitPrice.Value.ToString(),
                     //數量
-                    excelApp.worksheet.Cells[rowCount + 1, "C"] = boxAmount.Value.ToString();
+                        boxAmount.Value.ToString(),
                     //成交日期
-                    excelApp.worksheet.Cells[rowCount + 1, "D"] = dateTimePicker.Value.ToString("yyyy/MM/dd");
+                        dateTimePicker.Value.ToString("yyyy/MM/dd"),
                     //總成本
-                    excelApp.worksheet.Cells[rowCount + 1, "E"] = boxTotalPrice.Value.ToString();
-                    //損益
-                    excelApp.worksheet.Cells[rowCount + 1, "J"] = "=I" + (rowCount + 1) + "-E" + (rowCount + 1);
+                        boxTotalPrice.Value.ToString(),
+                    };
+                    excelCell.buyDataWrite(data, rowCount);
+                    excelCell.rowDataMax += 1;
                 }
                 else
                 {
-                    float targetBuyPrice = (float)boxTargetUnitPrice.Value - 5;
+                    float targetBuyPrice = (float)boxTargetUnitPrice.Value - stock.getSellInterval();
                     bool isFound = false;
-                    for (int i = 3; i <= rowCount; i++)
+                    string[] data = {
+                        //單價
+                            boxUnitPrice.Value.ToString(),
+                        //數量
+                            boxAmount.Value.ToString(),
+                        //成交日期
+                            dateTimePicker.Value.ToString("yyyy/MM/dd"),
+                        //總收益
+                            boxTotalPrice.Value.ToString()
+                        };
+                    for (int i = excelCell.rowDataStart; i < rowCount; i++)
                     {
-                        Excel.Range targetPriceCell = (Excel.Range)excelApp.worksheet.Cells[i, "A"];
-                        Excel.Range soldPriceCell = (Excel.Range)excelApp.worksheet.Cells[i, "F"];
-
-                        if (targetPriceCell.Value.ToString() == targetBuyPrice.ToString() && soldPriceCell.Value2 == null)
+                        if (excelCell.getTargetPriceValue(i) == targetBuyPrice.ToString() && excelCell.getSellUnitPriceValue(i) == "")
                         {
-                            //單價
-                            excelApp.worksheet.Cells[i, "F"] = boxUnitPrice.Value.ToString();
-                            //數量
-                            excelApp.worksheet.Cells[i, "G"] = boxAmount.Value.ToString();
-                            //成交日期
-                            excelApp.worksheet.Cells[i, "H"] = dateTimePicker.Value.ToString("yyyy/MM/dd");
-                            //總收益
-                            excelApp.worksheet.Cells[i, "I"] = boxTotalPrice.Value.ToString();
+                            excelCell.sellDataWrite(data, i);
                             isFound = true;
 
                             //本次獲利讀取
-                            Excel.Range thisTimeProfitCell = (Excel.Range)excelApp.worksheet.Cells[i, "J"];
-                            MessageBox.Show("本次獲利：" + thisTimeProfitCell.Text + "元");
+                            MessageBox.Show("本次獲利：" + excelCell.getBalance(i) + "元");
                         }
                     }
                     if (!isFound)
                     {
-                        //單價
-                        excelApp.worksheet.Cells[rowCount + 1, "F"] = boxUnitPrice.Value.ToString();
-                        //數量
-                        excelApp.worksheet.Cells[rowCount + 1, "G"] = boxAmount.Value.ToString();
-                        //成交日期
-                        excelApp.worksheet.Cells[rowCount + 1, "H"] = dateTimePicker.Value.ToString("yyyy/MM/dd");
-                        //總收益
-                        excelApp.worksheet.Cells[rowCount + 1, "I"] = boxTotalPrice.Value.ToString();
-                        //損益
-                        excelApp.worksheet.Cells[rowCount + 1, "J"] = "=I" + (rowCount + 1) + "-E" + (rowCount + 1);
+                        excelCell.sellDataWrite(data, rowCount);
+                        excelCell.rowDataMax += 1;
 
-                        //本次獲利讀取
-                        Excel.Range thisTimeProfitCell = (Excel.Range)excelApp.worksheet.Cells[rowCount + 1, "J"];
-                        MessageBox.Show("(賣庫存需手動修正) 本次獲利：" + thisTimeProfitCell.Text + "元");
+                        //本次獲利讀取 TODO: 下一行注意
+                        MessageBox.Show("(賣庫存需手動修正) 本次獲利：" + excelCell.getBalance(rowCount) + "元");
                     }
                 }
                 //存檔
@@ -129,11 +121,42 @@ namespace Cobweb_in_Stock
         private void boxTargetUnitPrice_ValueChanged(object sender, EventArgs e)
         {
             boxUnitPrice.Value = boxTargetUnitPrice.Value;
+            boxPriceIcrementlUpdate(boxTargetUnitPrice);
         }
 
         private void boxUnitPrice_ValueChanged(object sender, EventArgs e)
         {
             totalPriceUpdate();
+            boxPriceIcrementlUpdate(boxUnitPrice);
+        }
+
+        private void boxPriceIcrementlUpdate(NumericUpDown numericBox)
+        {
+            if (stock != null)
+            {
+                if (!stock.isSpecialStock())
+                {
+                    if (numericBox.Value < 10)
+                        numericBox.Increment = (decimal)0.01;
+                    else if (numericBox.Value < 50)
+                        numericBox.Increment = (decimal)0.05;
+                    else if (numericBox.Value < 100)
+                        numericBox.Increment = (decimal)0.1;
+                    else if (numericBox.Value < 500)
+                        numericBox.Increment = (decimal)0.5;
+                    else if (numericBox.Value < 1000)
+                        numericBox.Increment = (decimal)1;
+                    else
+                        numericBox.Increment = (decimal)5;
+                }
+                else
+                {
+                    if (numericBox.Value < 50)
+                        numericBox.Increment = (decimal)0.01;
+                    else
+                        numericBox.Increment = (decimal)0.05;
+                }
+            }
         }
 
         private void boxAmount_ValueChanged(object sender, EventArgs e)
@@ -144,7 +167,8 @@ namespace Cobweb_in_Stock
         private void totalPriceUpdate()
         {
             Mode = comboBoxMode.SelectedItem.ToString();
-            stock.updateTransactionPrice(Mode, (float)boxUnitPrice.Value, (int)boxAmount.Value);
+            if (stock != null)
+                stock.updateTransactionPrice(Mode, (float)boxUnitPrice.Value, (int)boxAmount.Value);
             updateUi();
         }
 
@@ -155,17 +179,22 @@ namespace Cobweb_in_Stock
             {
                 buttonSend.BackColor = Color.Red;
                 buttonSend.ForeColor = Color.White;
-                boxTargetUnitPrice.Value = (decimal)stock.getNextBuyPrice();
+                if (stock != null)
+                    boxTargetUnitPrice.Value = (decimal)stock.getNextBuyPrice();
             }
             else
             {
                 buttonSend.BackColor = Color.Green;
                 buttonSend.ForeColor = Color.White;
-                boxTargetUnitPrice.Value = (decimal)stock.getNextSellPrice();
+                if (stock != null)
+                    boxTargetUnitPrice.Value = (decimal)stock.getNextSellPrice();
             }
-            textBoxFee.Text = Math.Round(stock.getFee(), 2).ToString("#0.00");
-            textBoxTax.Text = Math.Round(stock.getTax(), 2).ToString("#0.00");
-            boxTotalPrice.Value = (decimal)stock.getDealPrice();
+            if (stock != null)
+            {
+                textBoxFee.Text = Math.Round(stock.getFee(), 2).ToString("#0.00");
+                textBoxTax.Text = Math.Round(stock.getTax(), 2).ToString("#0.00");
+                boxTotalPrice.Value = (decimal)stock.getDealPrice();
+            }
         }
 
         private void OpenFile()
@@ -178,6 +207,30 @@ namespace Cobweb_in_Stock
             else
             {
                 textBoxFileStatus.Text = "已載入";
+                excelCell = new ExcelCell(excelApp.worksheet);
+                string stockName = excelCell.stockName.getValue();
+                string stockNumber = excelCell.stockNumber.getValue();
+                float buyInterval;
+                if (!float.TryParse(excelCell.buyInterval.getValue(), out buyInterval))
+                {
+                    MessageBox.Show("錯誤，買進區間需為數字，請檢查Excel檔案");
+                    return;
+                }
+                float sellInterval;
+                if (!float.TryParse(excelCell.sellInterval.getValue(), out sellInterval))
+                {
+                    MessageBox.Show("錯誤，賣出區間需為數字，請檢查Excel檔案");
+                    return;
+                }
+                int expectAmount;
+                if (!int.TryParse(excelCell.expectSellAmount.getValue(), out expectAmount))
+                {
+                    MessageBox.Show("錯誤，每次操作數量需為正整數，請檢查Excel檔案");
+                    return;
+                }
+                stock = new Stock(stockName, stockNumber, buyInterval, sellInterval, expectAmount, 300, 250);
+
+                boxAmount.Value = decimal.Parse(excelCell.expectBuyAmount.getValue());
                 ProfitStockDateUpdate();
                 NextOperatePriceUpdate();
                 totalPriceUpdate();
@@ -187,42 +240,48 @@ namespace Cobweb_in_Stock
         private void ProfitStockDateUpdate()
         {
             /* 抓取EXCEL表格更新已實現獲利、庫存股數、最後更新日期 */
-            Excel.Range profitCell = (Excel.Range)excelApp.worksheet.Cells[5, "N"];
-            textBoxObtainedProfit.Text = profitCell.Text;
-            Excel.Range stockCell = (Excel.Range)excelApp.worksheet.Cells[6, "N"];
-            textBoxStock.Text = stockCell.Text;
-            Excel.Range lastUpdateCell = (Excel.Range)excelApp.worksheet.Cells[7, "N"];
-            textBoxLastUpdate.Text = lastUpdateCell.Text;
+            if (excelCell != null)
+            {
+                tbObtainedProfit.Text = excelCell.obtainedProfit.getValue();
+                tbReserveAmount.Text = excelCell.reserveAmount.getValue();
+                tbLastUpdate.Text = excelCell.lastUpdateDate.getValue();
+            }
         }
 
         private void NextOperatePriceUpdate()
         {
             /* 更新下次需操作股價 */
-            if (excelApp.worksheet != null)
+            if (excelApp.worksheet != null && excelCell != null)
             {
-                int rowCount = excelApp.worksheet.UsedRange.Cells.Rows.Count;
                 float minPriceInStock = float.MaxValue;
-                for (int i = 3; i <= rowCount; i++)
+                for (int i = excelCell.rowDataStart; i <= excelCell.rowDataMax; i++)
                 {
-                    Excel.Range targetPriceCell = (Excel.Range)excelApp.worksheet.Cells[i, "A"];
-                    Excel.Range soldPriceCell = (Excel.Range)excelApp.worksheet.Cells[i, "F"];
                     float buyPriceInCell;
-                    if (float.TryParse(targetPriceCell.Value.ToString(), out buyPriceInCell))
+                    if (float.TryParse(excelCell.getTargetPriceValue(i), out buyPriceInCell))
                     {
-                        if (buyPriceInCell < minPriceInStock && soldPriceCell.Value2 == null)
+                        if (buyPriceInCell < minPriceInStock && excelCell.getSellUnitPriceValue(i) == "")
                         {
                             minPriceInStock = buyPriceInCell;
                         }
                     }
                 }
-                stock.setNextPrice(minPriceInStock - stock.getBuyInterval(), minPriceInStock + stock.getSellInterval());
+                if (stock != null)
+                    stock.setNextPrice(minPriceInStock - stock.getBuyInterval(), minPriceInStock + stock.getSellInterval());
             }
+        }
+
+        private void btnCreateFile_Click(object sender, EventArgs e)
+        {
+            textBoxFileStatus.Text = "建立中...";
+            btnCreateFile.Enabled = false;
+            Form2 formNewStock = new Form2();
+            formNewStock.Show();
+            formNewStock.Visible = true;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             excelApp.Close();
         }
-
     }
 }

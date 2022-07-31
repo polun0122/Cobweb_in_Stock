@@ -1,29 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Cobweb_in_Stock
 {
-    internal class Stock
+    class Stock
     {
-        /* 固定的變數 */
-        string name;
-        string number; // 股票代碼
-        //bool isSpecial; // 是否為特別股
-        string execelName; // 檔案名稱
-        float price_ub; // 蛛網設定之股價上限
-        float price_lb; // 蛛網設定之股價下限
-        float buyInterval; // 買進區間
-        float sellInterval; // 售出區間
-        float expectAmount; // 預期每次操作股數
+        //public class BasicData
+        //{
+            /* 固定的變數 */
+            string name;
+            string number; // 股票代碼
+            string execelName; // 檔案名稱
+            float price_ub; // 蛛網設定之股價上限
+            float price_lb; // 蛛網設定之股價下限
+            float buyInterval; // 買進區間
+            float sellInterval; // 售出區間
+            float expectAmount; // 預期每次操作股數
 
-        double feeRate = 0.001425 * 0.6;//手續費率
-        double taxRate; //證交稅率
-        int minFee = 1; // 最低手續費
-        int minTax = 1; // 最低證交稅
+            double feeRate = 0.001425 * 0.6;//手續費率
+            double taxRate; //證交稅率
+            int minFee = 1; // 最低手續費
+            int minTax = 1; // 最低證交稅
+
+        //    public BasicData()
+        //    {
+
+        //    }
+        //}
 
         /* 浮動的變數 */
         float nextBuyPrice; // 下一次買進價格
@@ -34,7 +36,7 @@ namespace Cobweb_in_Stock
         float fee; //手續費
         float tax; //證交稅
 
-        public Stock(string name, string number, float price_ub, float price_lb, float buyInterval, float sellInterval, int expectAmount)
+        public Stock(string name, string number, float buyInterval, float sellInterval, float expectAmount, float price_ub, float price_lb)
         {
             this.name = name;
             this.number = number;
@@ -43,11 +45,23 @@ namespace Cobweb_in_Stock
             this.buyInterval = buyInterval;
             this.sellInterval = sellInterval;
             this.expectAmount = expectAmount;
-            this.nextBuyPrice = (price_lb + price_ub) / 2;
-            this.nextSellPrice = (price_lb + price_ub) / 2;
 
             /* 設定稅率 */
             taxRate = this.isSpecialStock() ? 0.001 : 0.003;
+        }
+
+        public void SetBasicData(/*BasicData basicData*/)
+        {
+            //this.name = name;
+            //this.number = number;
+            //this.price_ub = price_ub;
+            //this.price_lb = price_lb;
+            //this.buyInterval = buyInterval;
+            //this.sellInterval = sellInterval;
+            //this.expectAmount = expectAmount;
+            //this.nextBuyPrice = (price_lb + price_ub) / 2;
+            //this.nextSellPrice = (price_lb + price_ub) / 2;
+
         }
 
         public void setNextPrice(float nextBuyPrice, float nextSellPrice)
@@ -73,7 +87,7 @@ namespace Cobweb_in_Stock
         public bool isSpecialStock()
         {
             Regex rx = new Regex("[A-Z]$");
-            return rx.IsMatch(this.number);
+            return rx.IsMatch(number);
         }
 
         public int updateTransactionPrice(string mode, float dealUnitPrice, int dealAmount)
