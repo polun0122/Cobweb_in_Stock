@@ -111,7 +111,7 @@ namespace Cobweb_in_Stock
             if (mode == "買進")
             {
                 tax = 0;
-                this.dealPrice = this.dealUnitPrice * this.dealAmount + (int)fee + (int)tax;
+                this.dealPrice = (int)(this.dealUnitPrice * this.dealAmount + (int)fee + (int)tax);
                 if (this.dealUnitPrice > nextBuyPrice)
                     return 3;
             }
@@ -120,7 +120,7 @@ namespace Cobweb_in_Stock
                 tax = (float)(this.dealUnitPrice * this.dealAmount * taxRate);
                 if (tax < minTax)
                     tax = minTax;
-                this.dealPrice = this.dealUnitPrice * this.dealAmount - (int)fee - (int)tax;
+                this.dealPrice = (int)(this.dealUnitPrice * this.dealAmount - (int)fee - (int)tax);
                 if (this.dealUnitPrice < nextSellPrice)
                     return 4;
             }
