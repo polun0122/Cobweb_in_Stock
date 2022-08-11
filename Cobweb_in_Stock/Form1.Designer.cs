@@ -86,6 +86,7 @@ namespace Cobweb_in_Stock
             this.textBoxFilePath.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.textBoxFilePath.Size = new System.Drawing.Size(300, 27);
             this.textBoxFilePath.TabIndex = 1;
+            this.textBoxFilePath.TabStop = false;
             // 
             // comboBoxMode
             // 
@@ -110,7 +111,7 @@ namespace Cobweb_in_Stock
             this.dateTimePicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(116, 27);
-            this.dateTimePicker.TabIndex = 3;
+            this.dateTimePicker.TabIndex = 12;
             // 
             // label1
             // 
@@ -181,6 +182,7 @@ namespace Cobweb_in_Stock
             this.boxTargetUnitPrice.ReadOnly = true;
             this.boxTargetUnitPrice.Size = new System.Drawing.Size(100, 27);
             this.boxTargetUnitPrice.TabIndex = 9;
+            this.boxTargetUnitPrice.TabStop = false;
             this.boxTargetUnitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.boxTargetUnitPrice.Value = new decimal(new int[] {
             10,
@@ -246,7 +248,7 @@ namespace Cobweb_in_Stock
             0});
             this.boxTotalPrice.Name = "boxTotalPrice";
             this.boxTotalPrice.Size = new System.Drawing.Size(100, 27);
-            this.boxTotalPrice.TabIndex = 12;
+            this.boxTotalPrice.TabIndex = 15;
             this.boxTotalPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.boxTotalPrice.ThousandsSeparator = true;
             // 
@@ -278,6 +280,7 @@ namespace Cobweb_in_Stock
             this.textBoxFileStatus.ReadOnly = true;
             this.textBoxFileStatus.Size = new System.Drawing.Size(300, 27);
             this.textBoxFileStatus.TabIndex = 14;
+            this.textBoxFileStatus.TabStop = false;
             this.textBoxFileStatus.Text = "未載入";
             // 
             // buttonSend
@@ -286,7 +289,7 @@ namespace Cobweb_in_Stock
             this.buttonSend.Location = new System.Drawing.Point(409, 311);
             this.buttonSend.Name = "buttonSend";
             this.buttonSend.Size = new System.Drawing.Size(116, 39);
-            this.buttonSend.TabIndex = 16;
+            this.buttonSend.TabIndex = 99;
             this.buttonSend.Text = "送出";
             this.buttonSend.UseVisualStyleBackColor = true;
             this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
@@ -309,6 +312,7 @@ namespace Cobweb_in_Stock
             this.tbObtainedProfit.ReadOnly = true;
             this.tbObtainedProfit.Size = new System.Drawing.Size(100, 27);
             this.tbObtainedProfit.TabIndex = 19;
+            this.tbObtainedProfit.TabStop = false;
             this.tbObtainedProfit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // tbReserveAmount
@@ -319,6 +323,7 @@ namespace Cobweb_in_Stock
             this.tbReserveAmount.ReadOnly = true;
             this.tbReserveAmount.Size = new System.Drawing.Size(100, 27);
             this.tbReserveAmount.TabIndex = 21;
+            this.tbReserveAmount.TabStop = false;
             this.tbReserveAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label9
@@ -339,6 +344,7 @@ namespace Cobweb_in_Stock
             this.textBoxTax.ReadOnly = true;
             this.textBoxTax.Size = new System.Drawing.Size(100, 27);
             this.textBoxTax.TabIndex = 25;
+            this.textBoxTax.TabStop = false;
             this.textBoxTax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label10
@@ -359,6 +365,7 @@ namespace Cobweb_in_Stock
             this.textBoxFee.ReadOnly = true;
             this.textBoxFee.Size = new System.Drawing.Size(100, 27);
             this.textBoxFee.TabIndex = 23;
+            this.textBoxFee.TabStop = false;
             this.textBoxFee.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label11
@@ -390,6 +397,7 @@ namespace Cobweb_in_Stock
             this.tbLastUpdate.ReadOnly = true;
             this.tbLastUpdate.Size = new System.Drawing.Size(100, 27);
             this.tbLastUpdate.TabIndex = 28;
+            this.tbLastUpdate.TabStop = false;
             this.tbLastUpdate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label12

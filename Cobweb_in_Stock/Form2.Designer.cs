@@ -34,34 +34,34 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.nbSellInterval = new System.Windows.Forms.NumericUpDown();
+            this.nbExpectAmount = new System.Windows.Forms.NumericUpDown();
+            this.nbBuyInterval = new System.Windows.Forms.NumericUpDown();
             this.tbStrategyDetail = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.buttonSend = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.dateDealDate = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.dateDealDate = new System.Windows.Forms.DateTimePicker();
             this.label11 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.nbBuyInterval = new System.Windows.Forms.NumericUpDown();
-            this.nbExpectAmount = new System.Windows.Forms.NumericUpDown();
-            this.nbSellInterval = new System.Windows.Forms.NumericUpDown();
             this.nbMaxInvestMoney = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nbBuyInterval)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nbExpectAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbSellInterval)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nbExpectAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nbBuyInterval)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbMaxInvestMoney)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
             this.SuspendLayout();
@@ -132,6 +132,57 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "操作策略";
             // 
+            // nbSellInterval
+            // 
+            this.nbSellInterval.DecimalPlaces = 2;
+            this.nbSellInterval.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nbSellInterval.Location = new System.Drawing.Point(256, 35);
+            this.nbSellInterval.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.nbSellInterval.Name = "nbSellInterval";
+            this.nbSellInterval.Size = new System.Drawing.Size(70, 27);
+            this.nbSellInterval.TabIndex = 8;
+            this.nbSellInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // nbExpectAmount
+            // 
+            this.nbExpectAmount.Location = new System.Drawing.Point(463, 35);
+            this.nbExpectAmount.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.nbExpectAmount.Name = "nbExpectAmount";
+            this.nbExpectAmount.Size = new System.Drawing.Size(70, 27);
+            this.nbExpectAmount.TabIndex = 9;
+            this.nbExpectAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // nbBuyInterval
+            // 
+            this.nbBuyInterval.DecimalPlaces = 2;
+            this.nbBuyInterval.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nbBuyInterval.Location = new System.Drawing.Point(91, 35);
+            this.nbBuyInterval.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.nbBuyInterval.Name = "nbBuyInterval";
+            this.nbBuyInterval.Size = new System.Drawing.Size(70, 27);
+            this.nbBuyInterval.TabIndex = 7;
+            this.nbBuyInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // tbStrategyDetail
             // 
             this.tbStrategyDetail.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -180,7 +231,7 @@
             this.buttonSend.Location = new System.Drawing.Point(473, 360);
             this.buttonSend.Name = "buttonSend";
             this.buttonSend.Size = new System.Drawing.Size(103, 32);
-            this.buttonSend.TabIndex = 13;
+            this.buttonSend.TabIndex = 20;
             this.buttonSend.Text = "存檔";
             this.buttonSend.UseVisualStyleBackColor = true;
             this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
@@ -202,6 +253,78 @@
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "庫存資訊";
+            // 
+            // numericUpDown3
+            // 
+            this.numericUpDown3.Location = new System.Drawing.Point(266, 75);
+            this.numericUpDown3.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+            this.numericUpDown3.Name = "numericUpDown3";
+            this.numericUpDown3.Size = new System.Drawing.Size(90, 27);
+            this.numericUpDown3.TabIndex = 15;
+            this.numericUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(150, 75);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(90, 27);
+            this.numericUpDown2.TabIndex = 14;
+            this.numericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.DecimalPlaces = 2;
+            this.numericUpDown1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericUpDown1.Location = new System.Drawing.Point(27, 75);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(90, 27);
+            this.numericUpDown1.TabIndex = 13;
+            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label10.Location = new System.Drawing.Point(386, 39);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(71, 16);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "成交日期";
+            // 
+            // dateDealDate
+            // 
+            this.dateDealDate.CalendarFont = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dateDealDate.CustomFormat = "yyyy/MM/dd";
+            this.dateDealDate.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dateDealDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateDealDate.Location = new System.Drawing.Point(389, 75);
+            this.dateDealDate.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
+            this.dateDealDate.Name = "dateDealDate";
+            this.dateDealDate.Size = new System.Drawing.Size(116, 27);
+            this.dateDealDate.TabIndex = 16;
             // 
             // label1
             // 
@@ -233,28 +356,6 @@
             this.label9.TabIndex = 5;
             this.label9.Text = "買入單價";
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label10.Location = new System.Drawing.Point(386, 39);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(71, 16);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "成交日期";
-            // 
-            // dateDealDate
-            // 
-            this.dateDealDate.CalendarFont = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dateDealDate.CustomFormat = "yyyy/MM/dd";
-            this.dateDealDate.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dateDealDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateDealDate.Location = new System.Drawing.Point(389, 75);
-            this.dateDealDate.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
-            this.dateDealDate.Name = "dateDealDate";
-            this.dateDealDate.Size = new System.Drawing.Size(116, 27);
-            this.dateDealDate.TabIndex = 11;
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -264,107 +365,6 @@
             this.label11.Size = new System.Drawing.Size(103, 16);
             this.label11.TabIndex = 15;
             this.label11.Text = "蛛網上限單價";
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.DecimalPlaces = 2;
-            this.numericUpDown1.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.numericUpDown1.Location = new System.Drawing.Point(27, 75);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(90, 27);
-            this.numericUpDown1.TabIndex = 13;
-            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Location = new System.Drawing.Point(150, 75);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(90, 27);
-            this.numericUpDown2.TabIndex = 14;
-            this.numericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // numericUpDown3
-            // 
-            this.numericUpDown3.Location = new System.Drawing.Point(266, 75);
-            this.numericUpDown3.Maximum = new decimal(new int[] {
-            99999999,
-            0,
-            0,
-            0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(90, 27);
-            this.numericUpDown3.TabIndex = 15;
-            this.numericUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // nbBuyInterval
-            // 
-            this.nbBuyInterval.DecimalPlaces = 2;
-            this.nbBuyInterval.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nbBuyInterval.Location = new System.Drawing.Point(91, 35);
-            this.nbBuyInterval.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
-            this.nbBuyInterval.Name = "nbBuyInterval";
-            this.nbBuyInterval.Size = new System.Drawing.Size(70, 27);
-            this.nbBuyInterval.TabIndex = 16;
-            this.nbBuyInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // nbExpectAmount
-            // 
-            this.nbExpectAmount.Location = new System.Drawing.Point(463, 35);
-            this.nbExpectAmount.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
-            this.nbExpectAmount.Name = "nbExpectAmount";
-            this.nbExpectAmount.Size = new System.Drawing.Size(70, 27);
-            this.nbExpectAmount.TabIndex = 16;
-            this.nbExpectAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // nbSellInterval
-            // 
-            this.nbSellInterval.DecimalPlaces = 2;
-            this.nbSellInterval.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nbSellInterval.Location = new System.Drawing.Point(256, 35);
-            this.nbSellInterval.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
-            this.nbSellInterval.Name = "nbSellInterval";
-            this.nbSellInterval.Size = new System.Drawing.Size(70, 27);
-            this.nbSellInterval.TabIndex = 17;
-            this.nbSellInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // nbMaxInvestMoney
             // 
@@ -377,7 +377,7 @@
             0});
             this.nbMaxInvestMoney.Name = "nbMaxInvestMoney";
             this.nbMaxInvestMoney.Size = new System.Drawing.Size(103, 27);
-            this.nbMaxInvestMoney.TabIndex = 16;
+            this.nbMaxInvestMoney.TabIndex = 5;
             this.nbMaxInvestMoney.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // numericUpDown5
@@ -391,7 +391,7 @@
             0});
             this.numericUpDown5.Name = "numericUpDown5";
             this.numericUpDown5.Size = new System.Drawing.Size(103, 27);
-            this.numericUpDown5.TabIndex = 17;
+            this.numericUpDown5.TabIndex = 6;
             this.numericUpDown5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // Form2
@@ -415,14 +415,14 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nbSellInterval)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nbExpectAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nbBuyInterval)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nbBuyInterval)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nbExpectAmount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nbSellInterval)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbMaxInvestMoney)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
             this.ResumeLayout(false);
