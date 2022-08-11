@@ -175,7 +175,7 @@ namespace Cobweb_in_Stock
             remainMoney.writeValue("=" + maxInvestMoney.getIndex() + "-" + investedMoney.getIndex());
             remainMoney.addBorder();
             obtainedProfit.writeTitle("已實現獲利", true);
-            obtainedProfit.writeValue("=SUMIF(" + col_balance + ":" + col_balance + ",\" > 0\")");
+            obtainedProfit.writeValue("=SUMIF(" + col_balance + ":" + col_balance + ",\">0\")");
             obtainedProfit.addBorder();
             reserveAmount.writeTitle("庫存股票", true);
             reserveAmount.writeValue("=SUM(" + col_buyAmount + "$" + rowDataStart + ":" + col_buyAmount + "$1048576)-SUM(" + col_sellAmount + "$" + rowDataStart + ":" + col_sellAmount + "$1048576)");
