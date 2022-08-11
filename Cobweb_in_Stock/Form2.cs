@@ -11,11 +11,7 @@ namespace Cobweb_in_Stock
         public Form2()
         {
             InitializeComponent();
-            tbBuyInterval.Text = "1";
-        }
-
-        private void btnBrowse_Click(object sender, EventArgs e)
-        {
+            dateDealDate.Value = DateTime.Now;
         }
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
@@ -31,30 +27,10 @@ namespace Cobweb_in_Stock
             cell.initialWorksheet();
             string stockName = tbStockName.Text;
             string stockNumber = tbStockNumber.Text;
-            int maxInvestMoney;
-            if (! int.TryParse(tbMaxInvestMoney.Text, out maxInvestMoney))
-            {
-                MessageBox.Show("錯誤：最大投資金額須為正整數");
-                return;
-            }
-            float buyInterval;
-            if (!float.TryParse(tbBuyInterval.Text, out buyInterval))
-            {
-                MessageBox.Show("錯誤：買進區間須為正數");
-                return;
-            }
-            float sellInterval;
-            if (!float.TryParse(tbSellInterval.Text, out sellInterval))
-            {
-                MessageBox.Show("錯誤：賣出區間須為正數");
-                return;
-            }
-            int expectAmount;
-            if (!int.TryParse(tbExpectAmount.Text, out expectAmount))
-            {
-                MessageBox.Show("錯誤：單次操作股數須為正整數");
-                return;
-            }
+            int maxInvestMoney = (int)nbMaxInvestMoney.Value;
+            float buyInterval = (float)nbBuyInterval.Value;
+            float sellInterval = (float)nbSellInterval.Value;
+            int expectAmount = (int)nbExpectAmount.Value;
             cell.basicDataWrite(stockName, stockNumber, maxInvestMoney, buyInterval, sellInterval, expectAmount);
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -78,7 +54,7 @@ namespace Cobweb_in_Stock
         private void updateStrategy(object sender, EventArgs e)
         {
             string template = "跌 {0} 元買 {1} 股，買進後漲 {2} 元賣 {3} 股";
-            string strategy = String.Format(template, tbBuyInterval.Text, tbExpectAmount.Text, tbSellInterval.Text, tbExpectAmount.Text);
+            string strategy = String.Format(template, nbBuyInterval.Text, nbExpectAmount.Text, nbSellInterval.Text, nbExpectAmount.Text);
             tbStrategyDetail.Text = strategy;
         }
     }
