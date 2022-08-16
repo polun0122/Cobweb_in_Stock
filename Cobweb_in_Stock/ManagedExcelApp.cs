@@ -17,6 +17,10 @@ namespace Cobweb_in_Stock
         {
             try
             {
+                if (workbook != null)
+                {
+                    workbook.Close();
+                }
                 workbook = excelApp.Workbooks.Open(path);
                 worksheet = (Excel.Worksheet)workbook.Worksheets.get_Item(1);
                 //excelApp.Visible = true;

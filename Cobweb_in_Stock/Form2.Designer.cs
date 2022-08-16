@@ -33,7 +33,7 @@
             this.tbStockName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxOpStrategy = new System.Windows.Forms.GroupBox();
             this.nbSellInterval = new System.Windows.Forms.NumericUpDown();
             this.nbExpectAmount = new System.Windows.Forms.NumericUpDown();
             this.nbBuyInterval = new System.Windows.Forms.NumericUpDown();
@@ -42,26 +42,26 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.buttonSend = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.groupBoxReserveInfo = new System.Windows.Forms.GroupBox();
+            this.nbReserveCost = new System.Windows.Forms.NumericUpDown();
+            this.nbReserveAmount = new System.Windows.Forms.NumericUpDown();
+            this.nbReserveUnitPrice = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
-            this.dateDealDate = new System.Windows.Forms.DateTimePicker();
+            this.dateReserveDealDate = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.nbMaxInvestMoney = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxOpStrategy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nbSellInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbExpectAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbBuyInterval)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.groupBoxReserveInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nbReserveCost)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nbReserveAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nbReserveUnitPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbMaxInvestMoney)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
             this.SuspendLayout();
@@ -115,22 +115,22 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "預計投入金額";
             // 
-            // groupBox1
+            // groupBoxOpStrategy
             // 
-            this.groupBox1.Controls.Add(this.nbSellInterval);
-            this.groupBox1.Controls.Add(this.nbExpectAmount);
-            this.groupBox1.Controls.Add(this.nbBuyInterval);
-            this.groupBox1.Controls.Add(this.tbStrategyDetail);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.groupBox1.Location = new System.Drawing.Point(30, 100);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(546, 129);
-            this.groupBox1.TabIndex = 12;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "操作策略";
+            this.groupBoxOpStrategy.Controls.Add(this.nbSellInterval);
+            this.groupBoxOpStrategy.Controls.Add(this.nbExpectAmount);
+            this.groupBoxOpStrategy.Controls.Add(this.nbBuyInterval);
+            this.groupBoxOpStrategy.Controls.Add(this.tbStrategyDetail);
+            this.groupBoxOpStrategy.Controls.Add(this.label7);
+            this.groupBoxOpStrategy.Controls.Add(this.label6);
+            this.groupBoxOpStrategy.Controls.Add(this.label5);
+            this.groupBoxOpStrategy.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.groupBoxOpStrategy.Location = new System.Drawing.Point(30, 100);
+            this.groupBoxOpStrategy.Name = "groupBoxOpStrategy";
+            this.groupBoxOpStrategy.Size = new System.Drawing.Size(546, 129);
+            this.groupBoxOpStrategy.TabIndex = 12;
+            this.groupBoxOpStrategy.TabStop = false;
+            this.groupBoxOpStrategy.Text = "操作策略";
             // 
             // nbSellInterval
             // 
@@ -150,6 +150,7 @@
             this.nbSellInterval.Size = new System.Drawing.Size(70, 27);
             this.nbSellInterval.TabIndex = 8;
             this.nbSellInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nbSellInterval.ValueChanged += new System.EventHandler(this.updateStrategy);
             // 
             // nbExpectAmount
             // 
@@ -163,6 +164,7 @@
             this.nbExpectAmount.Size = new System.Drawing.Size(70, 27);
             this.nbExpectAmount.TabIndex = 9;
             this.nbExpectAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nbExpectAmount.ValueChanged += new System.EventHandler(this.updateStrategy);
             // 
             // nbBuyInterval
             // 
@@ -182,6 +184,7 @@
             this.nbBuyInterval.Size = new System.Drawing.Size(70, 27);
             this.nbBuyInterval.TabIndex = 7;
             this.nbBuyInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nbBuyInterval.ValueChanged += new System.EventHandler(this.updateStrategy);
             // 
             // tbStrategyDetail
             // 
@@ -236,73 +239,76 @@
             this.buttonSend.UseVisualStyleBackColor = true;
             this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
             // 
-            // groupBox2
+            // groupBoxReserveInfo
             // 
-            this.groupBox2.Controls.Add(this.numericUpDown3);
-            this.groupBox2.Controls.Add(this.numericUpDown2);
-            this.groupBox2.Controls.Add(this.numericUpDown1);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.dateDealDate);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.groupBox2.Location = new System.Drawing.Point(30, 235);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(546, 119);
-            this.groupBox2.TabIndex = 13;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "庫存資訊";
+            this.groupBoxReserveInfo.Controls.Add(this.nbReserveCost);
+            this.groupBoxReserveInfo.Controls.Add(this.nbReserveAmount);
+            this.groupBoxReserveInfo.Controls.Add(this.nbReserveUnitPrice);
+            this.groupBoxReserveInfo.Controls.Add(this.label10);
+            this.groupBoxReserveInfo.Controls.Add(this.dateReserveDealDate);
+            this.groupBoxReserveInfo.Controls.Add(this.label1);
+            this.groupBoxReserveInfo.Controls.Add(this.label8);
+            this.groupBoxReserveInfo.Controls.Add(this.label9);
+            this.groupBoxReserveInfo.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.groupBoxReserveInfo.Location = new System.Drawing.Point(30, 235);
+            this.groupBoxReserveInfo.Name = "groupBoxReserveInfo";
+            this.groupBoxReserveInfo.Size = new System.Drawing.Size(546, 119);
+            this.groupBoxReserveInfo.TabIndex = 13;
+            this.groupBoxReserveInfo.TabStop = false;
+            this.groupBoxReserveInfo.Text = "庫存資訊";
             // 
-            // numericUpDown3
+            // nbReserveCost
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(266, 75);
-            this.numericUpDown3.Maximum = new decimal(new int[] {
+            this.nbReserveCost.Location = new System.Drawing.Point(266, 75);
+            this.nbReserveCost.Maximum = new decimal(new int[] {
             99999999,
             0,
             0,
             0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(90, 27);
-            this.numericUpDown3.TabIndex = 15;
-            this.numericUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nbReserveCost.Name = "nbReserveCost";
+            this.nbReserveCost.Size = new System.Drawing.Size(90, 27);
+            this.nbReserveCost.TabIndex = 15;
+            this.nbReserveCost.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nbReserveCost.ThousandsSeparator = true;
             // 
-            // numericUpDown2
+            // nbReserveAmount
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(150, 75);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
+            this.nbReserveAmount.Location = new System.Drawing.Point(150, 75);
+            this.nbReserveAmount.Maximum = new decimal(new int[] {
             999999,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(90, 27);
-            this.numericUpDown2.TabIndex = 14;
-            this.numericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nbReserveAmount.Name = "nbReserveAmount";
+            this.nbReserveAmount.Size = new System.Drawing.Size(90, 27);
+            this.nbReserveAmount.TabIndex = 14;
+            this.nbReserveAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nbReserveAmount.ValueChanged += new System.EventHandler(this.updateReserveCost);
             // 
-            // numericUpDown1
+            // nbReserveUnitPrice
             // 
-            this.numericUpDown1.DecimalPlaces = 2;
-            this.numericUpDown1.Increment = new decimal(new int[] {
+            this.nbReserveUnitPrice.DecimalPlaces = 2;
+            this.nbReserveUnitPrice.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.numericUpDown1.Location = new System.Drawing.Point(27, 75);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.nbReserveUnitPrice.Location = new System.Drawing.Point(27, 75);
+            this.nbReserveUnitPrice.Maximum = new decimal(new int[] {
             999999,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(90, 27);
-            this.numericUpDown1.TabIndex = 13;
-            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.nbReserveUnitPrice.Name = "nbReserveUnitPrice";
+            this.nbReserveUnitPrice.Size = new System.Drawing.Size(90, 27);
+            this.nbReserveUnitPrice.TabIndex = 13;
+            this.nbReserveUnitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nbReserveUnitPrice.Value = new decimal(new int[] {
             100,
             0,
             0,
             0});
+            this.nbReserveUnitPrice.ValueChanged += new System.EventHandler(this.updateReserveCost);
             // 
             // label10
             // 
@@ -314,17 +320,17 @@
             this.label10.TabIndex = 12;
             this.label10.Text = "成交日期";
             // 
-            // dateDealDate
+            // dateReserveDealDate
             // 
-            this.dateDealDate.CalendarFont = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dateDealDate.CustomFormat = "yyyy/MM/dd";
-            this.dateDealDate.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dateDealDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateDealDate.Location = new System.Drawing.Point(389, 75);
-            this.dateDealDate.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
-            this.dateDealDate.Name = "dateDealDate";
-            this.dateDealDate.Size = new System.Drawing.Size(116, 27);
-            this.dateDealDate.TabIndex = 16;
+            this.dateReserveDealDate.CalendarFont = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dateReserveDealDate.CustomFormat = "yyyy/MM/dd";
+            this.dateReserveDealDate.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dateReserveDealDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateReserveDealDate.Location = new System.Drawing.Point(389, 75);
+            this.dateReserveDealDate.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
+            this.dateReserveDealDate.Name = "dateReserveDealDate";
+            this.dateReserveDealDate.Size = new System.Drawing.Size(116, 27);
+            this.dateReserveDealDate.TabIndex = 16;
             // 
             // label1
             // 
@@ -379,6 +385,7 @@
             this.nbMaxInvestMoney.Size = new System.Drawing.Size(103, 27);
             this.nbMaxInvestMoney.TabIndex = 5;
             this.nbMaxInvestMoney.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nbMaxInvestMoney.ThousandsSeparator = true;
             // 
             // numericUpDown5
             // 
@@ -402,9 +409,9 @@
             this.Controls.Add(this.numericUpDown5);
             this.Controls.Add(this.nbMaxInvestMoney);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBoxReserveInfo);
             this.Controls.Add(this.buttonSend);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBoxOpStrategy);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.tbStockName);
             this.Controls.Add(this.label3);
@@ -413,16 +420,16 @@
             this.Name = "Form2";
             this.Text = "新增股票Excel檔";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxOpStrategy.ResumeLayout(false);
+            this.groupBoxOpStrategy.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nbSellInterval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbExpectAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbBuyInterval)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.groupBoxReserveInfo.ResumeLayout(false);
+            this.groupBoxReserveInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nbReserveCost)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nbReserveAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nbReserveUnitPrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbMaxInvestMoney)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
             this.ResumeLayout(false);
@@ -436,22 +443,22 @@
         private System.Windows.Forms.TextBox tbStockName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxOpStrategy;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbStrategyDetail;
         private System.Windows.Forms.Button buttonSend;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBoxReserveInfo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.DateTimePicker dateDealDate;
+        private System.Windows.Forms.DateTimePicker dateReserveDealDate;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown nbReserveCost;
+        private System.Windows.Forms.NumericUpDown nbReserveAmount;
+        private System.Windows.Forms.NumericUpDown nbReserveUnitPrice;
         private System.Windows.Forms.NumericUpDown nbBuyInterval;
         private System.Windows.Forms.NumericUpDown nbSellInterval;
         private System.Windows.Forms.NumericUpDown nbExpectAmount;

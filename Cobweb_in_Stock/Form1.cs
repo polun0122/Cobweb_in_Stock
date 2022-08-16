@@ -52,8 +52,6 @@ namespace Cobweb_in_Stock
         {
             if (excelApp.worksheet != null)
             {
-                int rowCount = excelCell.rowDataMax;
-                
                 if (Mode == "買進")
                 {
                     string[] data = {
@@ -68,42 +66,21 @@ namespace Cobweb_in_Stock
                     //總成本
                         boxTotalPrice.Value.ToString(),
                     };
-                    excelCell.buyDataWrite(data, rowCount);
-                    excelCell.rowDataMax += 1;
+                    excelCell.BuyDataWrite(data);
                 }
                 else
                 {
-                    float targetBuyPrice = (float)boxTargetUnitPrice.Value - stock.getSellInterval();
-                    bool isFound = false;
                     string[] data = {
-                        //單價
-                            boxUnitPrice.Value.ToString(),
-                        //數量
-                            boxAmount.Value.ToString(),
-                        //成交日期
-                            dateTimePicker.Value.ToString("yyyy/MM/dd"),
-                        //總收益
-                            boxTotalPrice.Value.ToString()
-                        };
-                    for (int i = excelCell.rowDataStart; i < rowCount; i++)
-                    {
-                        if (excelCell.getTargetPriceValue(i) == targetBuyPrice.ToString() && excelCell.getSellUnitPriceValue(i) == "")
-                        {
-                            excelCell.sellDataWrite(data, i);
-                            isFound = true;
-
-                            //本次獲利讀取
-                            MessageBox.Show("本次獲利：" + excelCell.getBalance(i) + "元");
-                        }
-                    }
-                    if (!isFound)
-                    {
-                        excelCell.sellDataWrite(data, rowCount);
-                        excelCell.rowDataMax += 1;
-
-                        //本次獲利讀取 TODO: 下一行注意
-                        MessageBox.Show("(賣庫存需手動修正) 本次獲利：" + excelCell.getBalance(rowCount) + "元");
-                    }
+                    //單價
+                        boxUnitPrice.Value.ToString(),
+                    //數量
+                        boxAmount.Value.ToString(),
+                    //成交日期
+                        dateTimePicker.Value.ToString("yyyy/MM/dd"),
+                    //總收益
+                        boxTotalPrice.Value.ToString()
+                    };
+                    MessageBox.Show(excelCell.SellDataWrite(data));
                 }
                 //存檔
                 excelApp.Save();
@@ -273,7 +250,7 @@ namespace Cobweb_in_Stock
         private void btnCreateFile_Click(object sender, EventArgs e)
         {
             textBoxFileStatus.Text = "建立中...";
-            btnCreateFile.Enabled = false;
+            //btnCreateFile.Enabled = false;
             Form2 formNewStock = new Form2();
             formNewStock.Show();
             formNewStock.Visible = true;

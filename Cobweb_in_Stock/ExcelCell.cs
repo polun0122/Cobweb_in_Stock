@@ -3,83 +3,6 @@ using System.Drawing;
 
 namespace Cobweb_in_Stock
 {
-    internal class Cell
-    {
-        public enum Align
-        {
-            Right, Left, Center
-        }
-
-        Excel.Worksheet worksheet;
-        int row;
-        string column_str;
-        int column_int;
-        string index_str;
-
-        public Cell(Excel.Worksheet worksheet, int row, string column)
-        {
-            this.worksheet = worksheet;
-            this.row = row;
-            this.column_str = column;
-            this.column_int = 0;
-            foreach(char c in column)
-            {
-                this.column_int += (int)c - 'A' + 1;
-            }
-            this.index_str = column + row;
-        }
-
-        public string getValue()
-        {
-            return worksheet.Cells[row, column_int].Text;
-        }
-
-        public string getIndex()
-        {
-            return index_str;
-        }
-
-        public void writeTitle(string title, bool addBorder)
-        {
-            //用於最左側(基本資料表格)儲存格
-            worksheet.Cells[row, column_int - 1] = title;
-            if (addBorder)
-                worksheet.Cells[row, column_int - 1].Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-        }
-
-        public void writeValue(string value)
-        {
-            //用於一般儲存格
-            worksheet.Cells[row, column_int] = value;
-        }
-
-        public void setAlign(Align align)
-        {
-            /* 設定儲存格對齊方式 */
-            if (align == Align.Right)
-                worksheet.Cells[row, column_int].HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-            else if (align == Align.Left)
-                worksheet.Cells[row, column_int].HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-            else if (align == Align.Center)
-                worksheet.Cells[row, column_int].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-        }
-
-        public void addBorder()
-        {
-            worksheet.Cells[row, column_int].Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-        }
-
-        public void setColumnWidth(float widthInDot)
-        {
-            worksheet.Cells[row, column_int].ColumnWidth = widthInDot;
-        }
-
-        public void setColor(Color color)
-        {
-            worksheet.Cells[row, column_int].Interior.Color = ColorTranslator.ToOle(color);
-        }
-    }
-
     internal class ExcelCell
     {
         Excel.Worksheet worksheet;
@@ -158,7 +81,7 @@ namespace Cobweb_in_Stock
             return worksheet.Cells[row, col_sellUnitPrice].Text;
         }
 
-        public void initialWorksheet()
+        public void InitialWorksheet()
         {
             stockNumber.writeTitle("股票代碼", true);
             stockNumber.setAlign(Cell.Align.Center);
@@ -197,7 +120,7 @@ namespace Cobweb_in_Stock
             //labelBuy.writeValue(worksheet, "買進");
             //labelSell.writeValue(worksheet, "賣出");
             string[] labelStringBuy = { "目標單價", "買進單價", "買進數量", "成交日期", "買進成本", "損益" };
-            buyDataWrite(labelStringBuy, rowDataStart - 1);
+            BuyDataWrite(labelStringBuy);
             string[] labelStringSell = { "賣出單價", "賣出數量", "成交日期", "賣出收益" };
             sellDataWrite(labelStringSell, rowDataStart - 1);
             /* 新增明細區框線 */
@@ -215,61 +138,13 @@ namespace Cobweb_in_Stock
             //儲存格寬度
             worksheet.Range["A1:B1"].ColumnWidth = 15.50;
             worksheet.Range["C:C"].ColumnWidth = 2;
-            buyDataWidthSet();
-            sellDataWidthSet();
+            BuyDataWidthSet();
+            SellDataWidthSet();
             //儲存格高度
             worksheet.Range["A1:A2"].RowHeight = 31.50;
         }
 
-        public void basicDataWrite(string name, string number, int maxInvestMoney, float buyInterval, float sellInterval, int expectAmount)
-        {
-            this.stockName.writeValue(name);
-            this.stockNumber.writeValue(number);
-            this.maxInvestMoney.writeValue(maxInvestMoney.ToString());
-            this.buyInterval.writeValue(buyInterval.ToString());
-            this.buyInterval.setAlign(Cell.Align.Center);
-            this.sellInterval.writeValue(sellInterval.ToString());
-            this.sellInterval.setAlign(Cell.Align.Center);
-            this.expectBuyAmount.writeValue(expectAmount.ToString());
-            this.expectBuyAmount.setAlign(Cell.Align.Center);
-            this.expectSellAmount.writeValue(expectAmount.ToString());
-            this.expectSellAmount.setAlign(Cell.Align.Center);
-        }
-
-        public void buyDataWrite(string[] data, int row)
-        {
-            /* 買進資料輸入 */
-            // 目標單價
-            worksheet.Cells[row, col_targetPrice] = data[0];
-            // 買進單價
-            worksheet.Cells[row, col_buyUnitPrice] = data[1];
-            // 買進數量
-            worksheet.Cells[row, col_buyAmount] = data[2];
-            // 成交日期
-            worksheet.Cells[row, col_buyDate] = data[3];
-            // 買進成本
-            worksheet.Cells[row, col_buyTotalPrice] = data[4];
-            // 損益
-            if (data.Length > 5)
-                worksheet.Cells[row, col_balance] = data[5];
-            else
-                worksheet.Cells[row, col_balance] = "=" + col_sellTotalPrice + row + "-" + col_buyTotalPrice + row;
-        }
-
-        public void sellDataWrite(string[] data, int row)
-        {
-            /* 賣出資料輸入 */
-            // 賣出單價
-            worksheet.Cells[row, col_sellUnitPrice] = data[0];
-            // 賣出數量
-            worksheet.Cells[row, col_sellAmount] = data[1];
-            // 成交日期
-            worksheet.Cells[row, col_sellDate] = data[2];
-            // 賣出收益
-            worksheet.Cells[row, col_sellTotalPrice] = data[3];
-        }
-
-        public void buyDataWidthSet()
+        public void BuyDataWidthSet()
         {
             // 目標單價
             worksheet.Cells[rowDataStart, col_targetPrice].ColumnWidth = 8.88;
@@ -285,7 +160,7 @@ namespace Cobweb_in_Stock
             worksheet.Cells[rowDataStart, col_balance].ColumnWidth = 8.88;
         }
 
-        public void sellDataWidthSet()
+        public void SellDataWidthSet()
         {
             // 賣出單價
             worksheet.Cells[rowDataStart, col_sellUnitPrice].ColumnWidth = 8.88;
@@ -295,6 +170,116 @@ namespace Cobweb_in_Stock
             worksheet.Cells[rowDataStart, col_sellDate].ColumnWidth = 9.88;
             // 賣出收益
             worksheet.Cells[rowDataStart, col_sellTotalPrice].ColumnWidth = 8.88;
+        }
+
+        public void BasicDataWrite(string name, string number, int maxInvestMoney, float buyInterval, float sellInterval, int expectAmount)
+        {
+            this.stockName.writeValue(name);
+            this.stockNumber.writeValue(number);
+            this.maxInvestMoney.writeValue(maxInvestMoney.ToString());
+            this.buyInterval.writeValue(buyInterval.ToString());
+            this.buyInterval.setAlign(Cell.Align.Center);
+            this.sellInterval.writeValue(sellInterval.ToString());
+            this.sellInterval.setAlign(Cell.Align.Center);
+            this.expectBuyAmount.writeValue(expectAmount.ToString());
+            this.expectBuyAmount.setAlign(Cell.Align.Center);
+            this.expectSellAmount.writeValue(expectAmount.ToString());
+            this.expectSellAmount.setAlign(Cell.Align.Center);
+        }
+
+        public void BuyDataWrite(string[] data)
+        {
+            /* 買進資料輸入 */
+            int row;
+            // 損益
+            if (data.Length > 5)
+                row = rowDataStart - 1;
+            else
+                row = rowDataMax;
+
+            // 目標單價
+            worksheet.Cells[row, col_targetPrice] = data[0];
+            // 買進單價
+            worksheet.Cells[row, col_buyUnitPrice] = data[1];
+            // 買進數量
+            worksheet.Cells[row, col_buyAmount] = data[2];
+            // 成交日期
+            worksheet.Cells[row, col_buyDate] = data[3];
+            // 買進成本
+            worksheet.Cells[row, col_buyTotalPrice] = data[4];
+            // 損益
+            if (data.Length > 5)
+                worksheet.Cells[row, col_balance] = data[5];
+            else
+            {
+                worksheet.Cells[row, col_balance] = "=" + col_sellTotalPrice + rowDataMax + "-" + col_buyTotalPrice + rowDataMax;
+                rowDataMax++;
+            }
+        }
+
+        public string SellDataWrite(string[] data)
+        {
+            float targetBuyPrice = float.Parse(data[0]) - float.Parse(sellInterval.getValue());
+
+            for (int i = rowDataStart; i < rowDataMax; i++)
+            {
+                if (getTargetPriceValue(i) == targetBuyPrice.ToString() && getSellUnitPriceValue(i) == "")
+                {
+                    sellDataWrite(data, i);
+                    //本次獲利讀取
+                    return "本次獲利：" + getBalance(i) + "元";
+                }
+            }
+            return "Error: 查無買進資料寫入失敗，請確認後再試一次";
+        }
+        private void sellDataWrite(string[] data, int row)
+        {
+            /* 賣出資料寫入Excel */
+            // 賣出單價
+            worksheet.Cells[row, col_sellUnitPrice] = data[0];
+            // 賣出數量
+            worksheet.Cells[row, col_sellAmount] = data[1];
+            // 成交日期
+            worksheet.Cells[row, col_sellDate] = data[2];
+            // 賣出收益
+            worksheet.Cells[row, col_sellTotalPrice] = data[3];
+        }
+
+        public void SetReserveInfo(float buyUnitPrice, int amount, int totalCost, string dealDate)
+        {
+            float buyInterval_f = float.Parse(buyInterval.getValue());
+            int expextAmount_i = int.Parse(expectBuyAmount.getValue());
+            int number = amount / expextAmount_i;
+            int unitCost = totalCost / number;
+            int restCost = totalCost % number;
+
+            for (int i = 0; i < number; i++)
+            {
+                int unitCostTemp;
+                if (restCost > 0)
+                {
+                    unitCostTemp = unitCost + 1;
+                    restCost--;
+                }
+                else
+                {
+                    unitCostTemp = unitCost;
+                }
+                float unitPrice = buyUnitPrice + buyInterval_f * (number - i - 1);
+                string[] data = {
+                    //目標單價
+                        unitPrice.ToString(),
+                    //單價
+                        buyUnitPrice.ToString(),
+                    //數量
+                        expextAmount_i.ToString(),
+                    //成交日期
+                        dealDate,
+                    //總成本
+                        unitCostTemp.ToString(),
+                    };
+                BuyDataWrite(data);
+            }
         }
     }
 }
